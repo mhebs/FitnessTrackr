@@ -11,6 +11,10 @@ class Workout(db.Model):
     notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    def __init__(self, **kwargs):
+        """Initialize a new Workout instance."""
+        super(Workout, self).__init__(**kwargs)
+    
     def __repr__(self):
         return f"<Workout(date='{self.date}', type='{self.workout_type}', duration={self.duration})>"
     

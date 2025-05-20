@@ -77,3 +77,33 @@ def get_active_vs_rest_counts(workouts):
     rest_count = sum(1 for workout in workouts if workout.workout_type == 'Rest')
     
     return active_count, rest_count
+
+def check_consecutive_no_rest(workouts, days=7):
+    """
+    Check if there are 'days' or more consecutive workouts without a rest day.
+    
+    Args:
+        workouts: List of Workout objects, sorted by date
+        days: Number of consecutive days to check for (default: 7)
+        
+    Returns:
+        Boolean: True if there are 'days' consecutive workouts without rest
+    """
+    if not workouts:
+        return False
+    
+    # Sort workouts by date
+    sorted_workouts = sorted(workouts, key=lambda w: w.date)
+    
+    # Check for consecutive active days
+    consecutive_active = 0
+    for workout in sorted_workouts:
+        if workout.workout_type != 'Rest':
+            consecutive_active += 1
+            if consecutive_active >= days:
+                return True
+        else:
+            # Reset counter when a rest day is found
+            consecutive_active = 0
+            
+    return False

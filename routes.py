@@ -13,7 +13,14 @@ logger = logging.getLogger(__name__)
 @app.route('/')
 def dashboard():
     """Render the main dashboard."""
-    return render_template('dashboard.html')
+    # Get all workouts to check for consecutive days without rest
+    workouts = Workout.query.order_by(Workout.date).all()
+    
+    # Check if user has gone 7+ days without rest
+    from utils import check_consecutive_no_rest
+    needs_rest = check_consecutive_no_rest(workouts, days=7)
+    
+    return render_template('dashboard.html', needs_rest=needs_rest)
 
 @app.route('/form')
 def workout_form():

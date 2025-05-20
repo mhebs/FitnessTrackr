@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .cta-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .workout-options {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Log Your Workout</h2>
+            <p>Track your fitness journey with a daily record</p>
+        </div>
+        
+        <div class="content">
+            <p>Hi there,</p>
+            
+            <p>It's time to log your workout for <strong>{{ default_date }}</strong>. Keeping track helps you stay accountable and see your progress over time.</p>
+            
+            <div class="workout-options">
+                <p><strong>Did you workout yesterday?</strong></p>
+                <p>Choose from: Yoga, Pilates, Strength Training, Cardio, or Rest Day</p>
+            </div>
+            
+            <a href="{{ form_url }}" class="cta-button">Log My Workout</a>
+            
+            <p>Regular tracking is key to fitness success. Keep up the great work!</p>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated reminder from your Workout Tracker.</p>
+            <p>If you want to change your email preferences, please contact the administrator.</p>
+        </div>
+    </div>
+</body>
+</html>

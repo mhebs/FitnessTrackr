@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}Workout Reminders{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-5">
+                <i class="fas fa-bell me-2"></i> Workout Reminders
+            </h1>
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-chart-line me-1"></i> Back to Dashboard
+            </a>
+        </div>
+        <p class="lead text-muted">Your workout reminder notifications</p>
+    </div>
+</div>
+
+{% if notifications %}
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            {% for notification in notifications %}
+                <div class="card bg-dark mb-4">
+                    <div class="card-header {% if not notification.is_read %}bg-info{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">{{ notification.subject }}</h5>
+                            <span class="badge bg-secondary">{{ notification.created_at }}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="notification-content mb-3">
+                            {{ notification.content|safe }}
+                        </div>
+                        <div class="d-grid">
+                            <a href="{{ notification.form_url }}" class="btn btn-success">
+                                <i class="fas fa-dumbbell me-1"></i> Log Your Workout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info text-center">
+        <i class="fas fa-info-circle me-2"></i>
+        No workout reminders have been generated yet. They will appear here once created.
+    </div>
+    <div class="text-center mt-4">
+        <a href="/notifications/generate-test" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i> Generate Test Reminder
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

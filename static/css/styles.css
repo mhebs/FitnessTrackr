@@ -1,44 +1,99 @@
 /* Custom styles to complement Bootstrap */
 
+/* Custom styles for Workout Tracker */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 /* Calendar Heat Map */
 .calendar-heatmap {
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.month-container {
+    background: #2d3238;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.month-header {
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+.month-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.month-days {
+    display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    max-width: 700px;
-    margin: 0 auto;
+    gap: 2px;
+}
+
+.day-label {
+    text-align: center;
+    font-size: 0.8em;
+    color: #6c757d;
+    padding: 2px;
 }
 
 .calendar-day {
+    width: 100%;
     aspect-ratio: 1;
     border-radius: 4px;
+    background-color: #2d3238;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-size: 0.8em;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s;
+    position: relative;
 }
 
 .calendar-day:hover {
     transform: scale(1.1);
 }
 
-.calendar-day.rest {
-    background-color: var(--bs-gray-700);
+.calendar-day.active {
+    background-color: #198754;
+    color: white;
 }
 
-.calendar-day.active {
-    background-color: var(--bs-success);
+.calendar-day.rest {
+    background-color: #0dcaf0;
+    color: white;
 }
 
 .calendar-day.empty {
-    background-color: var(--bs-gray-800);
+    background-color: #2d3238;
+}
+
+.calendar-day.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: #1a1d20;
 }
 
 /* Dashboard stats */
 .stat-card {
-    transition: transform 0.3s;
-    height: 100%;
+    transition: transform 0.2s;
 }
 
 .stat-card:hover {
@@ -47,23 +102,21 @@
 
 /* Export button */
 .export-btn {
-    position: relative;
-    overflow: hidden;
+    transition: all 0.2s;
 }
 
-.export-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: all 0.5s;
+.export-btn:hover {
+    transform: translateY(-2px);
 }
 
-.export-btn:hover::after {
-    left: 100%;
+.success-message {
+    animation: fadeOut 2s forwards;
+    animation-delay: 3s;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 /* Workout form */
@@ -73,13 +126,20 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 992px) {
+    .calendar-heatmap {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .calendar-heatmap {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
+        grid-template-columns: repeat(2, 1fr);
     }
-    
-    .calendar-day {
-        font-size: 10px;
+}
+
+@media (max-width: 576px) {
+    .calendar-heatmap {
+        grid-template-columns: 1fr;
     }
 }

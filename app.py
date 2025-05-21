@@ -2,19 +2,12 @@ import os
 import logging
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
+from extensions import db
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
-class Base(DeclarativeBase):
-    pass
-
-# Initialize SQLAlchemy
-db = SQLAlchemy(model_class=Base)
 
 # Create the app
 app = Flask(__name__)
@@ -40,10 +33,19 @@ app.config["TO_EMAIL"] = os.environ.get("TO_EMAIL", "user@example.com")
 # Set production mode
 app.config["PRODUCTION"] = os.environ.get("PRODUCTION", "False").lower() == "true"
 
+# Add cache busting for static files
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
+# Import models and create tables
+from models import Workout  # noqa: E402
+
 with app.app_context():
-    # Import models
-    import models  # noqa: F401
-    
     # Create database tables
     db.create_all()
     logger.info("Database tables created")
+
+# Import routes
+import routes  # noqa: E402
+
+if __name__ == '__main__':
+    app.run(debug=True)

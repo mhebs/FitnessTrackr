@@ -58,40 +58,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Hide duration field when Rest is selected
-    document.addEventListener('DOMContentLoaded', function() {
-        const workoutTypeSelect = document.getElementById('workout-type');
-        const durationField = document.getElementById('duration-field');
-        
-        workoutTypeSelect.addEventListener('change', function() {
-            if (this.value === 'Rest') {
-                durationField.style.display = 'none';
-                document.getElementById('workout-duration').value = 0;
-            } else {
-                durationField.style.display = 'block';
-                if (document.getElementById('workout-duration').value === '0') {
-                    document.getElementById('workout-duration').value = '';
-                }
-            }
-        });
-        
-        // Check URL parameters for pre-filled values
-        const urlParams = new URLSearchParams(window.location.search);
-        const typeParam = urlParams.get('workout_type');
-        const durationParam = urlParams.get('duration');
-        
-        if (typeParam) {
-            workoutTypeSelect.value = typeParam;
-            // Trigger change event
-            const event = new Event('change');
-            workoutTypeSelect.dispatchEvent(event);
-        }
-        
-        if (durationParam) {
-            document.getElementById('workout-duration').value = durationParam;
-        }
-    });
-</script>
 {% endblock %}
